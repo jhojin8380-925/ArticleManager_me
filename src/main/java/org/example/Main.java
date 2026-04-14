@@ -37,16 +37,7 @@ class Main {
         System.out.println(id + "번 게시글이 작성되었습니다.");
         Articlenumberid++;
 
-      } else if (cmd.startsWith("article list ")) {
-        String Id = String.format(cmd.split(" ")[2]);
-
-        Article found = foundtitleArticle(Id);
-        if (found != null) {
-          System.out.println(Id + "가 제목에 들어간 게시글 목록");
-          for (int i = 0; i < articles.size(); i++){
-            System.out.printf(" %d / %s / %s / %s \n", found.getId(), found.getRegDate(), found.getTitle(), found.getBody());
-          }
-        }
+      } else if (cmd.startsWith("article list")) {
         if (articles.size() == 0) {
           System.out.println("게시글이 없습니다.");
           continue;
@@ -61,6 +52,17 @@ class Main {
             }
           }
         }
+
+        String Id = String.format(cmd.split(" ")[2]);
+
+        Article found = foundtitleArticle(Id);
+        if (found != null) {
+          System.out.println(Id + "가 제목에 들어간 게시글 목록");
+          for (int i = 0; i < articles.size(); i++){
+            System.out.printf(" %d / %s / %s / %s \n", found.getId(), found.getRegDate(), found.getTitle(), found.getBody());
+          }
+        }
+
       } else if (cmd.startsWith("article delete ")) {
         int Id = Integer.parseInt(cmd.split(" ")[2]);
 

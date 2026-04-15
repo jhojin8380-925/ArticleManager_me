@@ -4,4 +4,5 @@ public class Dto { //멤버(Member) 클래스와 게시판(Article)클래스에 
   protected int id;
   protected String regDate;
   protected String updateDate;
+
 }

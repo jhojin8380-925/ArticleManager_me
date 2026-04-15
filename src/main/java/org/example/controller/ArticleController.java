@@ -55,7 +55,7 @@ public class ArticleController extends Controller{
     String regDate = Util.getNowStr();
     String updateDate = Util.getNowStr();
 
-    Article article = new Article(id, regDate, updateDate, title, body);
+    Article article = new Article(id, regDate, updateDate, title, body, loginedMember.getId());
     articles.add(article);
 
     System.out.println(id + "번 글이 작성되었습니다.");
@@ -134,6 +134,11 @@ public class ArticleController extends Controller{
       System.out.println("해당 게시글은 없습니다");
       return;
     }
+    if (loginedMember.getId() != foundArticle.getMemberId()){
+      System.out.println("아이디가 일치하지않습니다.");
+      return;
+    }
+
     articles.remove(foundArticle);
     System.out.println(id + "번 게시글이 삭제되었습니다");
   }
@@ -148,6 +153,10 @@ public class ArticleController extends Controller{
 
     if (foundArticle == null) {
       System.out.println("해당 게시글은 없습니다");
+      return;
+    }
+    if (loginedMember.getId() != foundArticle.getMemberId()){
+      System.out.println("아이디가 일치하지않습니다.");
       return;
     }
     System.out.println("기존 title : " + foundArticle.getTitle());
@@ -177,9 +186,9 @@ public class ArticleController extends Controller{
   }
   public void Testdata() {
     System.out.println("== 테스트 데이터 생성 완료 ==");
-    articles.add(new Article(1, "2026-04-08 12:22:02", "2026-04-08 12:22:02", "제코딩Test", "testn111111"));
-    articles.add(new Article(2, Util.getNowStr(), Util.getNowStr(), "제자바2Test", "testn222222"));
-    articles.add(new Article(3, Util.getNowStr(), Util.getNowStr(), "파이썬2Test", "testn333333"));
+    articles.add(new Article(1, "2026-04-08 12:22:02", "2026-04-08 12:22:02", "제코딩Test", "testn111111", 1));
+    articles.add(new Article(2, Util.getNowStr(), Util.getNowStr(), "제자바2Test", "testn222222", 1));
+    articles.add(new Article(3, Util.getNowStr(), Util.getNowStr(), "파이썬2Test", "testn333333", 2));
   }
 
 

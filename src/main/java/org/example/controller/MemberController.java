@@ -78,7 +78,8 @@ public class MemberController extends Controller { //컨트롤러 상속
     String regDate = Util.getNowStr();  //회원가입 시간 등록
     String updateDate = Util.getNowStr();  //업데이트 시간도 등록
 
-
+    Member member = new Member(id, regDate, updateDate, loginId, password, name);
+    members.add(member);
 
     System.out.println(id + "번 회원이 가입 되었습니다."); //회원번호 출력
     lastMemberId++;

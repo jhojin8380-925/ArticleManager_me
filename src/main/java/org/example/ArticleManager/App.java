@@ -1,0 +1,55 @@
+package org.example.ArticleManager;
+
+import org.example.controller.ArticleController;
+import org.example.controller.Controller;
+import org.example.controller.MemberController;
+
+import java.util.Scanner;
+
+public class App {
+  public void run() {
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("==프로그램 시작==");
+
+    MemberController memberController = new MemberController(sc); //memberController 객체를 새로만들고 sc의 값을 넘겨줌 (스캐너넘겨주기)
+    ArticleController articleController = new ArticleController(sc); //위와동일
+
+    articleController.Testdata();  //테스트 테이터를 가져옴
+    memberController.TestData(); //테스트 데이터를 가져옴
+
+    Controller controller = null;  //controller 변수에 null값을 넣음
+
+    while (true) {
+      System.out.print("명령어 ) "); //무한반복문을 이용하여 사용자에게 입력값을 받음
+      String cmd = sc.nextLine().trim();
+
+      if (cmd.equals("exit")) { //exit 입력시 프로그램 종료
+        break;
+      } else if (cmd.length() == 0) {  //입력한 값이 없을 때 출력
+        System.out.println("명령어 입력하세요");
+        continue;
+      }
+
+      String[] cmdBits = cmd.split(" ");
+      String controllerName = cmdBits[0];
+      if (cmdBits.length == 1) {
+        System.out.println("명령어 확인 필요");
+        continue;
+      }
+      String actionMethodName = cmdBits[1];
+
+      if (controllerName.equals("article")) {
+        controller = articleController;
+      } else if (controllerName.equals("member")) {
+        controller = memberController;
+      } else {
+        System.out.println("지원하지 않는 기능");
+        continue;
+      }
+      controller.doAction(cmd, actionMethodName);
+    }
+    System.out.println("==프로그램 끝==");
+    sc.close();
+  }
+}
